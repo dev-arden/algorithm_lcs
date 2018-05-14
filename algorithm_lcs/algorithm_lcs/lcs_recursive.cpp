@@ -71,7 +71,7 @@ int main(int argc, const char * argv[])
 		}
 
 		QueryPerformanceCounter(&EndCounter); // 코드 수행 후 카운트 저장		
-		cout << "수행시간_동적:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
+		cout << "재귀버전_수행시간:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
 
 		cout << "lcs 중복 호출 횟수(행렬)" <<endl ; //lcs() 중복 횟수 출력
 
