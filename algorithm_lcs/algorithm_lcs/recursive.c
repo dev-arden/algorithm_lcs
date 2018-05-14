@@ -5,19 +5,28 @@
 #include<stdlib.h>
 #include<windows.h>
 
+
+
+
 int getmax(int a, int b); //x[0..m-1], y[0..n-1] 일때 lcs의 길이를 리턴해주는 함수
 double count[100][100] = { 0 }; //중복 호출 횟수를 알기 위한 이차원배열
-double show_lcs[100][100] = { 0 };
+
+
+
 
 int lcs(char *x, char *y, int m, int n) //lcs의 길이를 리턴해주는 함수
 {
+	
 	count[m][n]++; //중복이 발생되면(아래의 조건에 만족하면) +1 증가해서 저장
 
 	if (m == 0 || n == 0) //길이가 0일 경우
 		return 0; //0을 리턴함
 
 	if (x[m - 1] == y[n - 1]) //m,n의 인덱스 안에 들어있는 문자가 같은 경우
+	{
+		
 		return 1 + lcs(x, y, m - 1, n - 1); //1 + lcs(x, y, m-1, n-1);를 리턴함
+	}
 
 	else //중복되는 글자가 없는 경우
 		return getmax(lcs(x, y, m, n - 1), lcs(x, y, m - 1, n)); //getmax(lcs(x, y, m, n-1), lcs(x, y, m-1, n))을 리턴함
@@ -49,7 +58,7 @@ int main()
 		m = strlen(x); //x의 길이를 m에 저장 
 		n = strlen(y); //y의 길이를 n에 저장
 		printf("\nLCS를 통해 구한 최장 공통 부분순서의 길이 : %d\n", lcs(x, y, m, n)); //LCS를 통해 구한 최장 공통 부분 순서의 길이를 출력 
-
+		
 
 		QueryPerformanceCounter(&EndCounter); // 수행 시간 출력
 		printf("수행시간 = %f 초\n", (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart);

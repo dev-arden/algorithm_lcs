@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <string>
 #include <stack>
+#include <ctime>
 
 using namespace std;
 
@@ -11,9 +12,11 @@ int lcs[1001][1001];
 
 int main()
 {
+	time_t start, end;
 	string tmp1, tmp2;
 	cin >> tmp1 >> tmp2;
 
+	start = clock();
 	// LCS 알고리즘을 위해 앞에 '0'을 붙여준다.
 	str1 = '0' + tmp1;
 	str2 = '0' + tmp2;
@@ -93,6 +96,8 @@ int main()
 		cout << str1[st.top()];
 		st.pop();
 	}
+	end = clock();
+	cout << "수행시간_동적:" << (float)(end - start) / CLOCKS_PER_SEC << endl << endl;
 	return 0;
 }
 

@@ -1,48 +1,97 @@
 #include <iostream>
-#include <cstring>
+#include <string>
+#include <math.h>
+#include <algorithm>    
 #include <ctime>
+#include <vector>
+
 using namespace std;
 
-#define SIZE 100
-#define MAX(x,y)(x > y ? x : y)
+string s1, s2;
+double count_[100][100] = { 0 };
 
 
-char str1[SIZE];
-char str2[SIZE];
-int m, n;
 
-int memo[SIZE][SIZE];
-
-int LCS_recursion(int i, int j)
+int lcs(int idx1, int idx2, vector <char> &v) 
 {
-	if (i == m || j == n)
+
+	count_[idx1+1][idx2+1]++;
+
+	if (idx1 == -1 || idx2 == -1) {
 		return 0;
-	if (str1[i] == str2[j])
-		return 1 + LCS_recursion(i + 1, j + 1);
+	}
+
+	if (s1[idx1] == s2[idx2]) {
+		v.push_back(s1[idx1]); // record that we used this char
+		return 1 + lcs(idx1 - 1, idx2 - 1, v);
+	}
 	else {
-		return MAX(LCS_recursion(i + 1, j), LCS_recursion(i, j + 1));
+		vector<char> v1, v2;
+
+		int p1 = lcs(idx1 - 1, idx2, v1);
+		int p2 = lcs(idx1, idx2 - 1, v2);
+
+		if (p1 > p2) { // we used the chars we already had in v + the ones in v1
+			v.insert(v.end(), v1.begin(), v1.end());
+			return p1;
+		}
+		else { // we used the chars we already had in v + the ones in v2
+			v.insert(v.end(), v2.begin(), v2.end());
+			return p2;
+		}
 	}
 }
 
-int main(void)
+int main(int argc, const char * argv[])
 {
-	memset(str1, NULL, sizeof(char)*SIZE);
-	memset(str2, NULL, sizeof(char)*SIZE);
-	for (int i = 0; i > SIZE; i++)
+	while (1)
 	{
-		memset(memo[i], -1, sizeof(int)*SIZE);
+		time_t start, end;
+		int i = 0, j = 0;
+		cout << endl << "-------------LCS_재귀버전---------------" << endl << endl << "첫번째 문자열을 입력하세요: " ;
+		cin >> s1;
+		cout << endl << "두번째 문자열을 입력하세요: " ;
+		cin >> s2;
+		cout << endl;
+		int m = s1.length();
+		int n = s2.length();
+
+		start = clock();
+		vector<char> v; // chars we used
+		int sol = lcs(m - 1, n - 1, v); //i want to output "sdc"
+		cout << "LCS의 길이: " << sol;
+		reverse(v.begin(), v.end());
+
+		cout << endl;
+		cout << "LCS의 문자열: ";
+		for (auto num : v) {
+			cout << num;
+		}
+
+		end = clock();
+		cout << endl << "LCS_재귀버전 수행시간:" << (float)(end - start) / CLOCKS_PER_SEC << endl << endl;
+
+		cout << "lcs 중복 호출 횟수(행렬)" <<endl ; //lcs() 중복 횟수 출력
+
+		for (i = 0; i <= m; i++)
+		{
+			cout << endl;
+			for (j = 0; j <= n; j++)
+			{
+				cout.width(10);
+				cout << count_[i][j];
+			}
+			cout << endl;
+		}
 	}
-	cout << "첫번째 문자열을 입력하세요"; cin >> str1;
-	cout << "첫번째 문자열을 입력하세요"; cin >> str2;
-
-	m = strlen(str1);
-	n = strlen(str2);
-
-	time_t start, end;
-	start = clock();
-	cout << "가장 긴 길이는 : " << LCS_recursion(0, 0) << endl;
-	end = clock();
-	cout << "수행시간_재귀:" << (float)(end - start) / CLOCKS_PER_SEC << endl << endl;
 	return 0;
+	
 }
+
+
+
+
+
+
+
 
