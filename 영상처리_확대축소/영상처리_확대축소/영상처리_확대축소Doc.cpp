@@ -12,6 +12,7 @@
 #include "영상처리_확대축소Doc.h"
 
 #include <propkey.h>
+#include "Modify.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -210,8 +211,10 @@ BOOL C영상처리_확대축소Doc::OnOpenDocument(LPCTSTR lpszPathName)
 
 void C영상처리_확대축소Doc::Onnearest()
 {
+	CModify dlg;
+	dlg.DoModal();
 	int i, j;
-	int ZoomRate = 2; // 영상확대배율
+	int ZoomRate = dlg.modify; // 영상확대배율
 	double **tempArray;
 	m_Re_height = int(ZoomRate*m_height); // 확대된영상의높이
 	m_Re_width = int(ZoomRate*m_width); // 확대된영상의너비

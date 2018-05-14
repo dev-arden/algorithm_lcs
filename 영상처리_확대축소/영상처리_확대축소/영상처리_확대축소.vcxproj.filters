@@ -57,6 +57,9 @@
     <ClInclude Include="PropertiesWnd.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Modify.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="영상처리_확대축소.cpp">
@@ -90,6 +93,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Modify.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
