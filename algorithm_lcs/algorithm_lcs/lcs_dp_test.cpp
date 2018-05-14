@@ -3,6 +3,7 @@
 #include <string>
 #include <stack>
 #include <ctime>
+#include <Windows.h>
 
 using namespace std;
 
@@ -12,11 +13,12 @@ int lcs[1001][1001];
 
 int main()
 {
-	time_t start, end;
+	LARGE_INTEGER StartCounter, EndCounter, liFrequency;
 	string tmp1, tmp2;
 	cin >> tmp1 >> tmp2;
 
-	start = clock();
+	QueryPerformanceFrequency(&liFrequency); // 주파수(1초당 증가되는 카운트수)를 구함. 시간측정 초기화
+	QueryPerformanceCounter(&StartCounter); // 코드 수행 전 카운트 저장
 	// LCS 알고리즘을 위해 앞에 '0'을 붙여준다.
 	str1 = '0' + tmp1;
 	str2 = '0' + tmp2;
@@ -96,8 +98,8 @@ int main()
 		cout << str1[st.top()];
 		st.pop();
 	}
-	end = clock();
-	cout << "수행시간_동적:" << (float)(end - start) / CLOCKS_PER_SEC << endl << endl;
+	QueryPerformanceCounter(&EndCounter); // 코드 수행 후 카운트 저장		
+	cout << "수행시간_동적:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
 	return 0;
 }
 

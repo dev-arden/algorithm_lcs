@@ -4,6 +4,7 @@
 #include <algorithm>    
 #include <ctime>
 #include <vector>
+#include <Windows.h>
 
 using namespace std;
 
@@ -46,7 +47,7 @@ int main(int argc, const char * argv[])
 {
 	while (1)
 	{
-		time_t start, end;
+		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
 		int i = 0, j = 0;
 		cout << endl << "-------------LCS_재귀버전---------------" << endl << endl << "첫번째 문자열을 입력하세요: " ;
 		cin >> s1;
@@ -56,7 +57,8 @@ int main(int argc, const char * argv[])
 		int m = s1.length();
 		int n = s2.length();
 
-		start = clock();
+		QueryPerformanceFrequency(&liFrequency); // 주파수(1초당 증가되는 카운트수)를 구함. 시간측정 초기화
+		QueryPerformanceCounter(&StartCounter); // 코드 수행 전 카운트 저장
 		vector<char> v; // chars we used
 		int sol = lcs(m - 1, n - 1, v); //i want to output "sdc"
 		cout << "LCS의 길이: " << sol;
@@ -68,8 +70,8 @@ int main(int argc, const char * argv[])
 			cout << num;
 		}
 
-		end = clock();
-		cout << endl << "LCS_재귀버전 수행시간:" << (float)(end - start) / CLOCKS_PER_SEC << endl << endl;
+		QueryPerformanceCounter(&EndCounter); // 코드 수행 후 카운트 저장		
+		cout << "수행시간_동적:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
 
 		cout << "lcs 중복 호출 횟수(행렬)" <<endl ; //lcs() 중복 횟수 출력
 
