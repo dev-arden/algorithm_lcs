@@ -1,5 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <cstdio>
+#include <fstream>
 #include <string>
 #include <stack>
 #include <ctime>
@@ -13,15 +14,21 @@ int lcs[1001][1001];
 
 int main()
 {
-	while (1)
-	{
+	//while (1)
+	//{
 		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
 		string tmp1, tmp2;
-		cout << endl << "-------------LCS_동적프로그래밍버전---------------" << endl << endl << "첫번째 문자열을 입력하세요: ";
-		cin >> tmp1;
-		cout << endl << "두번째 문자열을 입력하세요: ";
-		cin >> tmp2;
+		ifstream inf("input.txt");
+
+		getline(inf, tmp1); //파일 입출력 
+		getline(inf, tmp2); //표준 입출
+
+		cout << endl << "-------------LCS_동적프로그래밍버전---------------\n" << endl ;
+		
+		cout << "파일로부터 입력받은 첫번째 문자열 : " <<tmp1;
+
 		cout << endl;
+		cout << "파일로부터 입력받은 두번째 문자열 : " << tmp2 << "\n";
 
 		QueryPerformanceFrequency(&liFrequency); // 주파수(1초당 증가되는 카운트수)를 구함. 시간측정 초기화
 		QueryPerformanceCounter(&StartCounter); // 코드 수행 전 카운트 저장
@@ -96,7 +103,7 @@ int main()
 		}
 
 		// 길이 출력
-		cout << "LCS의 길이: " << lcs[len1 - 1][len2 - 1] << endl;
+		cout << "\nLCS의 길이: " << lcs[len1 - 1][len2 - 1] ;
 
 		cout << endl;
 		cout << "LCS의 문자열: ";
@@ -110,7 +117,7 @@ int main()
 
 		cout << endl << endl;
 		cout << "동적플밍버전_수행시간:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
-	}
+	//}
 	return 0;
 }
 

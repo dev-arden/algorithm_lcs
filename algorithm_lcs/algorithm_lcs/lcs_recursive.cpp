@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <math.h>
 #include <algorithm>    
@@ -45,15 +46,21 @@ int lcs(int idx1, int idx2, vector <char> &v)
 
 int main(int argc, const char * argv[])
 {
-	while (1)
-	{
+	//while (1)
+	//{
 		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
+		ifstream inf("input.txt");
+
 		int i = 0, j = 0;
-		cout << endl << "-------------LCS_재귀버전---------------" << endl << endl << "첫번째 문자열을 입력하세요: " ;
-		cin >> s1;
-		cout << endl << "두번째 문자열을 입력하세요: " ;
-		cin >> s2;
+		cout << endl << "-------------LCS_재귀버전---------------\n" << endl  ;
+		getline(inf, s1); //파일 입출력 
+		getline(inf, s2); //표준 입출
+		cout << "파일로부터 입력받은 첫번째 문자열 : " << s1;
+
 		cout << endl;
+		cout << "파일로부터 입력받은 두번째 문자열 : " << s2 << "\n";
+		cout << endl;
+
 		int m = s1.length();
 		int n = s2.length();
 
@@ -71,7 +78,7 @@ int main(int argc, const char * argv[])
 		}
 
 		QueryPerformanceCounter(&EndCounter); // 코드 수행 후 카운트 저장		
-		cout << "재귀버전_수행시간:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
+		cout << "\n재귀버전_수행시간:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
 
 		cout << "lcs 중복 호출 횟수(행렬)" <<endl ; //lcs() 중복 횟수 출력
 
@@ -85,7 +92,7 @@ int main(int argc, const char * argv[])
 			}
 			cout << endl;
 		}
-	}
+	//}
 	return 0;
 	
 }
