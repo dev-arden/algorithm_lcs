@@ -28,6 +28,8 @@ BEGIN_MESSAGE_MAP(C영상처리_확대축소View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &C영상처리_확대축소View::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_COMMAND(ID_ONNEAREST, &C영상처리_확대축소View::OnOnnearest)
+	ON_COMMAND(ID_BILINEAR, &C영상처리_확대축소View::OnBilinear)
 END_MESSAGE_MAP()
 
 // C영상처리_확대축소View 생성/소멸
@@ -52,7 +54,7 @@ BOOL C영상처리_확대축소View::PreCreateWindow(CREATESTRUCT& cs)
 
 // C영상처리_확대축소View 그리기
 
-void C영상처리_확대축소View::OnDraw(CDC* /*pDC*/)
+void C영상처리_확대축소View::OnDraw(CDC* pDC)
 {
 	C영상처리_확대축소Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -60,6 +62,28 @@ void C영상처리_확대축소View::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+	int i, j;
+	unsigned char R, G, B;
+
+	for (i = 0; i < pDoc->m_height; i++)
+	{
+		for (j = 0; j < pDoc->m_width; j++)
+		{
+			R = pDoc->m_InputImage[i*pDoc->m_width + j];
+			G = B = R;
+			pDC->SetPixel(j + 5, i + 5, RGB(R, G, B));
+		}
+	}
+
+	for (i = 0; i < pDoc->m_Re_height; i++)
+	{
+		for (j = 0; j < pDoc->m_Re_width; j++)
+		{
+			R = pDoc->m_OutputImage[i*pDoc->m_Re_width + j];
+			G = B = R;
+			pDC->SetPixel(j + pDoc->m_width + 10, i + 5, RGB(R, G, B));
+		}
+	}
 }
 
 
@@ -125,3 +149,26 @@ C영상처리_확대축소Doc* C영상처리_확대축소View::GetDocument() const // 디버그되지
 
 
 // C영상처리_확대축소View 메시지 처리기
+
+
+void C영상처리_확대축소View::OnOnnearest()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	C영상처리_확대축소Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	pDoc->Onnearest();
+	Invalidate(TRUE);
+}
+
+
+void C영상처리_확대축소View::OnBilinear()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	C영상처리_확대축소Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnBilinear();
+	Invalidate(TRUE);
+
+}

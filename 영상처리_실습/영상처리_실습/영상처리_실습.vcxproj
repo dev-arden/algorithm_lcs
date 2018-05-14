@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C5A9F3AF-38DD-4DE7-A7FE-E5768179167C}</ProjectGuid>
-    <RootNamespace>영상처리_확대축소</RootNamespace>
+    <ProjectGuid>{E3C66C99-FCA2-4D69-A8F9-2A00064C7EEC}</ProjectGuid>
+    <RootNamespace>영상처리_실습</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -195,9 +195,9 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ViewTree.h" />
-    <ClInclude Include="영상처리_확대축소.h" />
-    <ClInclude Include="영상처리_확대축소Doc.h" />
-    <ClInclude Include="영상처리_확대축소View.h" />
+    <ClInclude Include="영상처리_실습.h" />
+    <ClInclude Include="영상처리_실습Doc.h" />
+    <ClInclude Include="영상처리_실습View.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
@@ -213,12 +213,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ViewTree.cpp" />
-    <ClCompile Include="영상처리_확대축소.cpp" />
-    <ClCompile Include="영상처리_확대축소Doc.cpp" />
-    <ClCompile Include="영상처리_확대축소View.cpp" />
+    <ClCompile Include="영상처리_실습.cpp" />
+    <ClCompile Include="영상처리_실습Doc.cpp" />
+    <ClCompile Include="영상처리_실습View.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="영상처리_확대축소.rc" />
+    <ResourceCompile Include="영상처리_실습.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\classview.bmp" />
@@ -243,8 +243,8 @@
     <Image Include="res\sort_hc.bmp" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
-    <Image Include="res\영상처리_확대축소.ico" />
-    <Image Include="res\영상처리_확대축소Doc.ico" />
+    <Image Include="res\영상처리_실습.ico" />
+    <Image Include="res\영상처리_실습Doc.ico" />
     <Image Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -253,9 +253,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties RESOURCE_FILE="영상처리_확대축소.rc" />
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>

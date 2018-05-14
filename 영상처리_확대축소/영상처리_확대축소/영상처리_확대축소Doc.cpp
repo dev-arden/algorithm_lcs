@@ -135,3 +135,229 @@ void C영상처리_확대축소Doc::Dump(CDumpContext& dc) const
 
 
 // C영상처리_확대축소Doc 명령
+
+
+BOOL C영상처리_확대축소Doc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	if (!CDocument::OnOpenDocument(lpszPathName))
+		return FALSE;
+
+	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
+	CFile File;
+	File.Open(lpszPathName, CFile::modeRead | CFile::typeBinary);
+	if (File.GetLength() == 32 * 32)
+	{
+		m_height = 32;
+		m_width = 32;
+	}
+	else if (File.GetLength() == 64 * 64)
+	{
+		m_height = 64;
+		m_width = 64;
+	}
+	else if (File.GetLength() == 128 * 128)
+	{
+		m_height = 128;
+		m_width = 128;
+	}
+	else if (File.GetLength() == 256 * 256)
+	{
+		m_height = 256;
+		m_width = 256;
+	}
+	else if (File.GetLength() == 512 * 512)
+	{
+		m_height = 512;
+		m_width = 512;
+	}
+	else if (File.GetLength() == 640 * 480)
+	{
+		m_height = 640;
+		m_width = 480;
+	}
+	else if (File.GetLength() == 176 * 144)
+	{
+		m_height = 144;
+		m_width = 176;
+	}
+	else if (File.GetLength() == 176 * 216)
+	{
+		m_height = 216;
+		m_width = 176;
+	}
+	else
+	{
+		AfxMessageBox(L"Not Support Lmage Size", MB_OK | MB_ICONEXCLAMATION);
+		return 0;
+	}
+
+	m_size = m_width * m_height;
+	m_InputImage = new unsigned char[m_size];
+	for (int i = 0; i < m_size; i++)
+	{
+		m_InputImage[i] = 255;
+	}
+	File.Read(m_InputImage, m_size);
+	File.Close();
+
+
+	return TRUE;
+}
+
+
+
+
+
+void C영상처리_확대축소Doc::Onnearest()
+{
+	int i, j;
+	int ZoomRate = 2; // 영상확대배율
+	double **tempArray;
+	m_Re_height = int(ZoomRate*m_height); // 확대된영상의높이
+	m_Re_width = int(ZoomRate*m_width); // 확대된영상의너비
+	m_Re_size = m_Re_height * m_Re_width;
+	m_tempImage = Image2DMem(m_height, m_width);
+	tempArray = Image2DMem(m_Re_height, m_Re_width);
+	m_OutputImage = new unsigned char[m_Re_size];
+	for (i = 0; i<m_height; i++) {
+		for (j = 0; j<m_width; j++) {
+			m_tempImage[i][j] = (double)m_InputImage[i*m_width + j];
+		}
+	}
+	for (i = 0; i< m_Re_height; i++) {
+		for (j = 0; j< m_Re_width; j++) {
+			tempArray[i][j] = m_tempImage[i / ZoomRate][j / ZoomRate];
+			// 이웃한화소를이용한보간
+		}
+	}
+	for (i = 0; i< m_Re_height; i++) {
+		for (j = 0; j< m_Re_width; j++) {
+			m_OutputImage[i* m_Re_width + j] = (unsigned char)tempArray[i][j];
+		}
+	}
+}
+
+
+double** C영상처리_확대축소Doc::OnMaskProcess(unsigned char *Target, double Mask[3][3])
+{
+	int i, j, n, m;
+	double **tempInputImage, **tempOutputImage, S = 0.0;
+	tempInputImage = Image2DMem(m_height + 2, m_width + 2);
+	// 입력값을위한메모리할당
+	tempOutputImage = Image2DMem(m_height, m_width);
+	// 출력값을위한메모리할당
+	// 1차원입력영상M_InputImage[]의값을2차원배열tempInputImage[][]에할당
+	for (i = 0; i<m_height; i++) {
+		for (j = 0; j<m_width; j++) {
+			tempInputImage[i + 1][j + 1] = (double)Target[i * m_width + j];
+		}
+	}
+	// 회선연산
+	for (i = 0; i<m_height; i++) {
+		for (j = 0; j<m_width; j++) {
+			for (n = 0; n<3; n++) {
+				for (m = 0; m<3; m++) {
+					S += Mask[n][m] * tempInputImage[i + n][j + m];
+				}
+			} // 회선마스크의크기만큼이동하면서값을누적
+			tempOutputImage[i][j] = S; // 누적된값을출력메모리에저장
+			S = 0.0; // 다음블록으로이동하면누적값을초기화
+		}
+	}
+	return tempOutputImage;
+}
+
+
+double** C영상처리_확대축소Doc::OnScale(double **Target, int height, int width)
+{
+	// 정규화를위한함수
+	int i, j;
+	double min, max;
+	min = max = Target[0][0];
+	for (i = 0; i < height; i++) {
+		for (j = 0; j < width; j++) {
+			if (Target[i][j] <= min)
+				min = Target[i][j];
+		}
+	}
+	for (i = 0; i < height; i++) {
+		for (j = 0; j < width; j++) {
+			if (Target[i][j] >= max)
+				max = Target[i][j];
+		}
+	}
+	max = max - min;
+	for (i = 0; i < height; i++) {
+		for (j = 0; j < width; j++) {
+			Target[i][j] = (Target[i][j] - min) * (255. / max);
+		}
+	}
+	return Target;
+}
+
+double** C영상처리_확대축소Doc::Image2DMem(int height, int width)
+{ // 2차원메모리할당을위한함수
+	double** temp;
+	int i, j;
+	temp = new double *[height];
+	for (i = 0; i<height; i++) {
+		temp[i] = new double[width];
+	}
+	for (i = 0; i<height; i++) {
+		for (j = 0; j<width; j++) {
+			temp[i][j] = 0.0;
+		}
+	} // 할당된2차원메모리를초기화
+	return temp;
+}
+
+
+void C영상처리_확대축소Doc::OnBilinear()
+{
+	int i, j, point, i_H, i_W;
+	unsigned char newValue;
+	double ZoomRate = 2.0, r_H, r_W, s_H, s_W;
+	double C1, C2, C3, C4;
+	m_Re_height = (int)(m_height * ZoomRate); // 확대된영상의높이
+	m_Re_width = (int)(m_width * ZoomRate); // 확대된영상의너비
+	m_Re_size = m_Re_height * m_Re_width;
+	m_tempImage = Image2DMem(m_height, m_width);
+	m_OutputImage = new unsigned char[m_Re_size];
+	for (i = 0; i < m_height; i++) {
+		for (j = 0; j < m_width; j++) {
+			m_tempImage[i][j] = (double)m_InputImage[i*m_width + j];
+		}
+	}
+
+	for (i = 0; i < m_Re_height; i++)
+	{
+		for (j = 0; j < m_Re_width; j++)
+		{
+			r_H = i / ZoomRate;
+			r_W = j / ZoomRate;
+			i_H = (int)floor(r_H);
+			i_W = (int)floor(r_W);
+			s_H = r_H - i_H; // 수평방향거리계산
+			s_W = r_W - i_W; // 수직방향거리계산
+			if (i_H < 0 || i_H >= (m_height - 1) || i_W < 0
+				|| i_W >= (m_width - 1))
+			{
+				point = i* m_Re_width + j;
+				m_OutputImage[point] = 255;
+			}
+
+			else
+			{
+				C1 = (double)m_tempImage[i_H][i_W];
+				C2 = (double)m_tempImage[i_H][i_W + 1];
+				C3 = (double)m_tempImage[i_H + 1][i_W + 1];
+				C4 = (double)m_tempImage[i_H + 1][i_W];
+				newValue = (unsigned char)(C1*(1 - s_H)*(1 - s_W)
+					+ C2*s_W*(1 - s_H) + C3*s_W*s_H + C4*(1 - s_W)*s_H);
+				point = i* m_Re_width + j;
+				m_OutputImage[point] = newValue;
+			}
+
+		}
+	}
+}
