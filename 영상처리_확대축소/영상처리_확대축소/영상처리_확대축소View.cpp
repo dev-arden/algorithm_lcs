@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(C영상처리_확대축소View, CView)
 	ON_WM_RBUTTONUP()
 	ON_COMMAND(ID_ONNEAREST, &C영상처리_확대축소View::OnOnnearest)
 	ON_COMMAND(ID_BILINEAR, &C영상처리_확대축소View::OnBilinear)
+	ON_COMMAND(ID_MEDIAN, &C영상처리_확대축소View::OnMedian)
 END_MESSAGE_MAP()
 
 // C영상처리_확대축소View 생성/소멸
@@ -171,4 +172,15 @@ void C영상처리_확대축소View::OnBilinear()
 	pDoc->OnBilinear();
 	Invalidate(TRUE);
 
+}
+
+
+void C영상처리_확대축소View::OnMedian()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	C영상처리_확대축소Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnMedianSub();
+	Invalidate(TRUE);
 }

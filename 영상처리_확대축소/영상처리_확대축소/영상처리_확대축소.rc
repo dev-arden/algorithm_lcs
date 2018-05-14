@@ -304,6 +304,7 @@ BEGIN
     BEGIN
         MENUITEM "onnearest",                   ID_ONNEAREST
         MENUITEM "bilinear",                    ID_BILINEAR
+        MENUITEM "median_sub",                  ID_MEDIAN
     END
 END
 

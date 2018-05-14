@@ -63,4 +63,7 @@ public:
 	double** Image2DMem(int height, int width);
 	double** m_tempImage;
 	void OnBilinear();
+	void OnMedianSub();
+	void OnBubbleSort(double * A, int MAX);
+	void OnSwap(double *a, double *b);
 };

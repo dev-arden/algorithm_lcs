@@ -85,19 +85,20 @@
 #define IDS_EXPLORER                    305
 #define IDS_EDIT_MENU                   306
 #define IDD_DIALOG1                     310
-#define IDC_EDIT1                       1000
 #define IDC_modify                      1000
 #define ID_MULTIMEDIA_ONNEAREST         32771
 #define ID_ONNEAREST                    32772
 #define ID_MULTIMEDIA_BILINEAR          32773
 #define ID_BILINEAR                     32774
+#define ID_MULTIMEDIA_MEDIAN            32775
+#define ID_MEDIAN                       32776
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32775
+#define _APS_NEXT_COMMAND_VALUE         32777
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

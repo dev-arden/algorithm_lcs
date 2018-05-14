@@ -46,6 +46,7 @@ protected:
 public:
 	afx_msg void OnOnnearest();
 	afx_msg void OnBilinear();
+	afx_msg void OnMedian();
 };
 
 #ifndef _DEBUG  // 영상처리_확대축소View.cpp의 디버그 버전

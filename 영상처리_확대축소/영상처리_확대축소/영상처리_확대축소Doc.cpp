@@ -364,3 +364,62 @@ void C영상처리_확대축소Doc::OnBilinear()
 		}
 	}
 }
+
+
+
+void C영상처리_확대축소Doc::OnMedianSub()
+{
+	CModify dlg;
+	dlg.DoModal();
+	int i, j, n, m, M = dlg.modify, index = 0; // M = 서브샘플링비율
+	double *Mask, Value;
+	Mask = new double[M*M]; // 마스크의크기결정
+	m_Re_height = (m_height + 1) / M;
+	m_Re_width = (m_width + 1) / M;
+	m_Re_size = m_Re_height* m_Re_width;
+	m_OutputImage = new unsigned char[m_Re_size];
+	m_tempImage = Image2DMem(m_height + 1, m_width + 1);
+	for (i = 0; i<m_height; i++) {
+		for (j = 0; j<m_width; j++) {
+			m_tempImage[i][j] = (double)m_InputImage[i*m_width + j];
+		}
+	}
+	for (i = 0; i<m_height - 1; i = i + M) {
+		for (j = 0; j<m_width - 1; j = j + M) {
+			for (n = 0; n<M; n++) {
+				for (m = 0; m<M; m++) {
+					Mask[n*M + m] = m_tempImage[i + n][j + m];
+					// 입력영상을블록으로잘라마스크배열에저장
+				}
+			}
+			OnBubbleSort(Mask, M*M); // 마스크에저장된값을정렬
+			Value = Mask[(int)(M*M / 2)]; // 정렬된값중가운데값을선택
+			m_OutputImage[index] = (unsigned char)Value;
+			// 가운데값을출력
+			index++;
+		}
+	}
+}
+
+
+
+void C영상처리_확대축소Doc::OnBubbleSort(double * A, int MAX)
+{
+	int i, j;
+	for (i = 0; i<MAX; i++) {
+		for (j = 0; j<MAX - 1; j++) {
+			if (A[j] > A[j + 1]) {
+				OnSwap(&A[j], &A[j + 1]);
+			}
+		}
+	}
+}
+
+
+void C영상처리_확대축소Doc::OnSwap(double *a, double *b)
+{ // 데이터교환함수
+	double temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
