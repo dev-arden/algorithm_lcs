@@ -14,16 +14,141 @@ int lcs[1001][1001];
 
 int main()
 {
-	//while (1)
-	//{
+	while (1)
+	{
 		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
 		string tmp1, tmp2;
-		ifstream inf("input.txt");
+		
+		int choice = 0;
 
-		getline(inf, tmp1); //파일 입출력 
-		getline(inf, tmp2); //표준 입출
+		//여기에 파일 고를 수 있는 메뉴를 만들자
+		cout << "번호에 따라 읽어들이는 파일이 달라집니다" << endl;
+		cout << "번호가 증가할수록 파일 안의 문자열의 LCS의 길이가 증가합니다" << endl;
+		
+		for (int x = 1; x < 16; x++)
+		{
+			cout.width(10);
+			cout << x ;
+			if (x % 3 == 0)
+				cout << endl;
+		}
 
-		cout << endl << "-------------LCS_동적프로그래밍버전---------------\n" << endl ;
+		cout << "\nLCS를 확인하고 싶은 파일의 번호를 입력하세요  " ;
+		
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			ifstream inf("input.txt");
+			getline(inf, tmp1); //파일 입출력 
+			getline(inf, tmp2); //표준 입출
+		}
+		break;
+		case 2:
+		{
+			ifstream inf2("input2.txt");
+			getline(inf2, tmp1); //파일 입출력 
+			getline(inf2, tmp2); //표준 입출
+		}
+			break;
+		case 3:
+		{
+			ifstream inf3("input3.txt");
+			getline(inf3, tmp1); //파일 입출력 
+			getline(inf3, tmp2); //표준 입출
+		}
+			break;
+		case 4:
+		{
+			ifstream inf4("input4.txt");
+			getline(inf4, tmp1); //파일 입출력 
+			getline(inf4, tmp2); //표준 입출
+		}
+			break;
+		case 5:
+		{
+			ifstream inf5("input5.txt");
+			getline(inf5, tmp1); //파일 입출력 
+			getline(inf5, tmp2); //표준 입출
+		}
+		break;
+		case 6:
+		{
+			ifstream inf6("input6.txt");
+			getline(inf6, tmp1); //파일 입출력 
+			getline(inf6, tmp2); //표준 입출
+		}
+		break;
+		case 7:
+		{
+			ifstream inf7("input7.txt");
+			getline(inf7, tmp1); //파일 입출력 
+			getline(inf7, tmp2); //표준 입출
+		}
+		break;
+		case 8:
+		{
+			ifstream inf8("input8.txt");
+			getline(inf8, tmp1); //파일 입출력 
+			getline(inf8, tmp2); //표준 입출
+		}
+		break;
+		case 9:
+		{
+			ifstream inf9("input9.txt");
+			getline(inf9, tmp1); //파일 입출력 
+			getline(inf9, tmp2); //표준 입출
+		}
+		break;
+		case 10:
+		{
+			ifstream inf10("input10.txt");
+			getline(inf10, tmp1); //파일 입출력 
+			getline(inf10, tmp2); //표준 입출
+		}
+		break;
+		case 11:
+		{
+			ifstream inf11("input11.txt");
+			getline(inf11, tmp1); //파일 입출력 
+			getline(inf11, tmp2); //표준 입출
+		}
+		break;
+		case 12:
+		{
+			ifstream inf12("input12.txt");
+			getline(inf12, tmp1); //파일 입출력 
+			getline(inf12, tmp2); //표준 입출
+		}
+		break;
+		case 13:
+		{
+			ifstream inf13("input13.txt");
+			getline(inf13, tmp1); //파일 입출력 
+			getline(inf13, tmp2); //표준 입출
+		}
+		break;
+		case 14:
+		{
+			ifstream inf14("input14.txt");
+			getline(inf14, tmp1); //파일 입출력 
+			getline(inf14, tmp2); //표준 입출
+		}
+		break;
+		case 15:
+		{
+			ifstream inf15("input15.txt");
+			getline(inf15, tmp1); //파일 입출력 
+			getline(inf15, tmp2); //표준 입출
+		}
+		break;
+		}
+
+
+
+		cout << endl << "-------------LCS_동적프로그래밍버전-----------------------------\n" << endl ;
 		
 		cout << "파일로부터 입력받은 첫번째 문자열 : " <<tmp1;
 
@@ -117,7 +242,8 @@ int main()
 
 		cout << endl << endl;
 		cout << "동적플밍버전_수행시간:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
-	//}
+		cout << "----------------------------------------------------------------" << endl;
+	}
 	return 0;
 }
 

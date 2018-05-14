@@ -46,15 +46,36 @@ int lcs(int idx1, int idx2, vector <char> &v)
 
 int main(int argc, const char * argv[])
 {
-	//while (1)
-	//{
+	while (1)
+	{
 		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
-		ifstream inf("input.txt");
-
+		int choice = 0;
 		int i = 0, j = 0;
+
+		//여기에 파일 고를 수 있는 메뉴를 만들자
+
+		cout << "입력하세요" << endl;
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			ifstream inf("input.txt");
+			getline(inf, s1); //파일 입출력 
+			getline(inf, s2); //표준 입출
+		}
+		break;
+		case 2:
+			ifstream inf2("inputin.txt");
+			getline(inf2, s1); //파일 입출력 
+			getline(inf2, s2); //표준 입출
+			break;
+		}
+
+
 		cout << endl << "-------------LCS_재귀버전---------------\n" << endl  ;
-		getline(inf, s1); //파일 입출력 
-		getline(inf, s2); //표준 입출
+		
 		cout << "파일로부터 입력받은 첫번째 문자열 : " << s1;
 
 		cout << endl;
@@ -92,7 +113,7 @@ int main(int argc, const char * argv[])
 			}
 			cout << endl;
 		}
-	//}
+	}
 	return 0;
 	
 }
