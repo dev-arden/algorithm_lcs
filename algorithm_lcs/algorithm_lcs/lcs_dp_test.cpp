@@ -14,6 +14,11 @@ int lcs[1001][1001];
 
 int main()
 {
+	cout << "아래에는 총 15개의 번호가 있습니다\n" << endl;
+	cout << "각 번호에 따라 프로그램이 읽는 파일이 달라집니다.\n" << endl;
+	cout << "파일 안에는 두 개의 문자열이 존재합니다.\n" << endl;
+	cout << "파일 안 두 개의 문자열의 최장 공통 부분 순서의 길이 및 문자열을 알려주는 프로그램입니다.\n" << endl;
+	cout << "번호가 증가할수록 최장 공통 부분 순서의 길이가 증가합니다\n" << endl;
 	while (1)
 	{
 		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
@@ -21,20 +26,18 @@ int main()
 		
 		int choice = 0;
 
-		//여기에 파일 고를 수 있는 메뉴를 만들자
-		cout << "번호에 따라 읽어들이는 파일이 달라집니다" << endl;
-		cout << "번호가 증가할수록 파일 안의 문자열의 LCS의 길이가 증가합니다" << endl;
-		
+		cout << "************파일번호*******************\n" << endl;
 		for (int x = 1; x < 16; x++)
 		{
 			cout.width(10);
-			cout << x ;
+			cout << x;
 			if (x % 3 == 0)
 				cout << endl;
 		}
+		cout << "\n**************************************\n";
 
-		cout << "\nLCS를 확인하고 싶은 파일의 번호를 입력하세요  " ;
-		
+		cout << "\nLCS를 확인하고 싶은 파일의 번호를 입력하세요  ";
+
 		cin >> choice;
 
 		switch (choice)
