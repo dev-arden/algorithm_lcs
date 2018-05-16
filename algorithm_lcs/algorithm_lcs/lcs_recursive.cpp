@@ -50,7 +50,8 @@ int main(int argc, const char * argv[])
 	cout << "각 번호에 따라 프로그램이 읽는 파일이 달라집니다.\n" << endl;
 	cout << "파일 안에는 두 개의 문자열이 존재합니다.\n" << endl;
 	cout << "파일 안 두 개의 문자열의 최장 공통 부분 순서의 길이 및 문자열을 알려주는 프로그램입니다.\n" << endl;
-	cout << "번호가 증가할수록 최장 공통 부분 순서의 길이가 증가합니다\n" << endl;
+	cout << "1 ~ 10번까지는 ALGORITHMREPORTEUNBEE를 기본 문자열로 하는 파일이며, 번호가 증가할수록 LCS의 길이가 감소합니다\n" << endl;
+	cout << "11 ~ 15번까지는 앞의 기본문자열외에 다른 문자열로 LCS를 알아보는 파일입니다 \n" << endl;
 	while (1)
 	{
 		LARGE_INTEGER StartCounter, EndCounter, liFrequency;
@@ -210,14 +211,13 @@ int main(int argc, const char * argv[])
 		QueryPerformanceCounter(&EndCounter); // 코드 수행 후 카운트 저장		
 		cout << "\n재귀버전_수행시간:" << (double)(EndCounter.QuadPart - StartCounter.QuadPart) / (double)liFrequency.QuadPart << endl << endl;
 
-		cout << "lcs 중복 호출 횟수(행렬)" <<endl ; //lcs() 중복 횟수 출력
+		cout << "LCS 중복 횟수" <<endl ; //lcs() 중복 횟수 출력
 
 		for (i = 0; i <= m; i++)
 		{
-			cout << endl;
 			for (j = 0; j <= n; j++)
-			{
-				cout.width(10);
+			{ 
+				cout.width(15);
 				cout << count_[i][j];
 			}
 			cout << endl;
