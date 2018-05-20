@@ -377,7 +377,7 @@ void C영상처리_확대축소Doc::OnMedianSub()
 	m_Re_height = (m_height + 1) / M;
 	m_Re_width = (m_width + 1) / M;
 	m_Re_size = m_Re_height* m_Re_width;
-	m_OutputImage = new unsigned char[m_Re_size];
+	 
 	m_tempImage = Image2DMem(m_height + 1, m_width + 1);
 	for (i = 0; i<m_height; i++) {
 		for (j = 0; j<m_width; j++) {

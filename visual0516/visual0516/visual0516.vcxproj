@@ -187,6 +187,7 @@
   <ItemGroup>
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="Dialogdegree.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -202,6 +203,7 @@
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="Dialogdegree.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
@@ -253,4 +255,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="visual0516.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

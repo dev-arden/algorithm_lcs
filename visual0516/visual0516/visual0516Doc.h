@@ -17,6 +17,15 @@ public:
 
 // 작업입니다.
 public:
+	int m_Re_size;
+	int m_Re_height;
+	int m_Re_width;
+	unsigned char* m_OutputImage;
+
+	int m_width;
+	int m_height;
+	int m_size;
+	unsigned char*m_InputImage;
 
 // 재정의입니다.
 public:
@@ -45,4 +54,13 @@ protected:
 	// 검색 처리기에 대한 검색 콘텐츠를 설정하는 도우미 함수
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
+	void OnRotate();
+	double** OnMaskProcess(unsigned char *Target, double Mask[3][3]);
+	double** OnScale(double **Target, int height, int width);
+	double** Image2DMem(int height, int width);
+	double** m_tempImage;
+	void OnRotate2();
+	void Interpolate(unsigned char* m_OutputImage);
 };

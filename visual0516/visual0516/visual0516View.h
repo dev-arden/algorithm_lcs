@@ -43,6 +43,9 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnRotation();
+	afx_msg void OnRotation2();
 };
 
 #ifndef _DEBUG  // visual0516View.cpp의 디버그 버전

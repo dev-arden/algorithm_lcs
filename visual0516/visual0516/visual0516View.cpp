@@ -28,6 +28,8 @@ BEGIN_MESSAGE_MAP(Cvisual0516View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &Cvisual0516View::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_COMMAND(ID_ROTATION, &Cvisual0516View::OnRotation)
+	ON_COMMAND(ID_ROTATION2, &Cvisual0516View::OnRotation2)
 END_MESSAGE_MAP()
 
 // Cvisual0516View 생성/소멸
@@ -52,7 +54,7 @@ BOOL Cvisual0516View::PreCreateWindow(CREATESTRUCT& cs)
 
 // Cvisual0516View 그리기
 
-void Cvisual0516View::OnDraw(CDC* /*pDC*/)
+void Cvisual0516View::OnDraw(CDC* pDC)
 {
 	Cvisual0516Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -60,6 +62,28 @@ void Cvisual0516View::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+	int i, j;
+	unsigned char R, G, B;
+
+	for (i = 0; i < pDoc->m_height; i++)
+	{
+		for (j = 0; j < pDoc->m_width; j++)
+		{
+			R = pDoc->m_InputImage[i*pDoc->m_width + j];
+			G = B = R;
+			pDC->SetPixel(j + 5, i + 5, RGB(R, G, B));
+		}
+	}
+
+	for (i = 0; i < pDoc->m_Re_height; i++)
+	{
+		for (j = 0; j < pDoc->m_Re_width; j++)
+		{
+			R = pDoc->m_OutputImage[i*pDoc->m_Re_width + j];
+			G = B = R;
+			pDC->SetPixel(j + pDoc->m_width + 10, i + 5, RGB(R, G, B));
+		}
+	}
 }
 
 
@@ -125,3 +149,25 @@ Cvisual0516Doc* Cvisual0516View::GetDocument() const // 디버그되지 않은 버전은 �
 
 
 // Cvisual0516View 메시지 처리기
+
+
+void Cvisual0516View::OnRotation()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	Cvisual0516Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnRotate();
+	Invalidate(TRUE);
+}
+
+
+void Cvisual0516View::OnRotation2()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	Cvisual0516Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	pDoc->OnRotate2();
+	Invalidate(TRUE);
+}
